@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head}"></head>
+
+<body>
+
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container my-5">
+    <h1 class="mb-4">Le Nostre Pizze</h1>
+
+   
+    <div th:if="${pizzas.isEmpty()}" class="alert alert-warning">
+        Non ci sono pizze disponibili al momento.
+    </div>
+
+    
+    <div th:unless="${pizzas.isEmpty()}" class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="pizza : ${pizzas}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="${pizza.photo}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="foto pizza">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${pizza.name}"></h5>
+                    <p class="card-text text-muted" th:text="${pizza.description}"></p>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-danger" th:text="${pizza.price} + ' €'"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+
+</body>
+</html>
